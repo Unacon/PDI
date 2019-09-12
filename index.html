@@ -675,10 +675,8 @@ Dentro dos laços existe quatro seletores 'if',caso o pixel esteja antes de 'X' 
 }</pre>
 </div>
 </div>
-<div class="literalblock">
-<div class="content">
-<pre>Após todo o procedimento, o programa irá exibir na tela a imagem original e a imagem trocada. A imagem trocada será guardada em um arquivo chamado imgtrocada.png.</pre>
-</div>
+<div class="paragraph">
+<p>Após todo o procedimento, o programa irá exibir na tela a imagem original e a imagem trocada. A imagem trocada será guardada em um arquivo chamado imgtrocada.png.</p>
 </div>
 <div class="literalblock">
 <div class="content">
@@ -850,31 +848,33 @@ heigth=image.size().height;</pre>
 Para exclui essa bolha, existe uma função chamada FloodFill que pinta todos os pixels até encontrar um pixels diferente do selecionado. As informações solicitadas pela função é a imagem, o ponto de operação e o valor desejável para pintar.
 Fica nitído que o primeiro laço so irá verificar se existe bolhas na borda superior e inferior, para compensar terá um novo laço na qual verifica bolhas na borda da esquerda e direita da mesma forma do primeiro laço.</p>
 </div>
-<div class="paragraph">
-<p>for(i=0;i&lt;heigth;i){
+<div class="literalblock">
+<div class="content">
+<pre>  for(i=0;i&lt;heigth;i++){
     if(image.at&lt;uchar&gt;(i,0)==255){
-       p.x=0;
-       p.y=i;
-          floodFill(image,p,0);
-    }
-    if(image.at&lt;uchar&gt;(i,width-1)==255){
-       p.x=width-1;
-       p.y=i;
+     p.x=0;
+     p.y=i;
         floodFill(image,p,0);
+  }
+  if(image.at&lt;uchar&gt;(i,width-1)==255){
+     p.x=width-1;
+     p.y=i;
+      floodFill(image,p,0);
+  }
     }
-      }
-   for(j=0;j&lt;width;j){
-     if(image.at&lt;uchar&gt;(0,j)==255){
-       p.x=j;
-       p.y=0;
-        floodFill(image,p,0);
-      }
-     if(image.at&lt;uchar&gt;(heigth-1,j)==255){
-       p.x=j;
-       p.y=heigth-1;
-       floodFill(image,p,0);
-      }
-  }</p>
+ for(j=0;j&lt;width;j++){
+   if(image.at&lt;uchar&gt;(0,j)==255){
+     p.x=j;
+     p.y=0;
+      floodFill(image,p,0);
+    }
+   if(image.at&lt;uchar&gt;(heigth-1,j)==255){
+     p.x=j;
+     p.y=heigth-1;
+     floodFill(image,p,0);
+    }
+}</pre>
+</div>
 </div>
 <div class="paragraph">
 <p>Posteriormente da verificação e exclusão das bolhas nas bordas da imagem, iremos passar para os laços que contam as bolhas dentro da imagem. Para isso foi criado dois laços que irá varrer toda a imagem,dentro do laço possui um seletor, caso o pixel seja igual a '255'(branco) a variável objetos será incrementada. A variável p da classe CvPoint irá armazenar a posição do pixel e seguidamente ocorre um FloodFill na imagem na posição 'p' com o valor do pixel 'objeto', percebemos que o valor do 'objeto' será diferente de '0'.
@@ -1023,7 +1023,7 @@ Abaixo temos a imagem mostrada anteriormente Equalizada.</p>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="Fotos/dota.jpg" alt="dota">
+<img src="Fotos/ImEq.jpg" alt="ImEq">
 </div>
 <div class="title">Figure 13. Imagem com Equalização</div>
 </div>
@@ -1162,13 +1162,15 @@ Logo depois temos a concatenação da imagem original com a imagem equalizada, i
 Posteriormente o vídeo concatenado é mostrado na tela.
 Podemos ver que temos um seletor, ele serve somente para sair do vídeo quando precionarmos a tecla "Esc".</p>
 </div>
-<div class="paragraph">
-<p>if (frame.empty())   break; //Acabar video, fecha while
-    hconcat(frame,Equalizado,Junto);
-    video.write(Junto);
-    imshow( "Video", Junto );
-    char c=(char)waitKey(25);
-    if(c==27)  break;  //Esc fecha video</p>
+<div class="literalblock">
+<div class="content">
+<pre>if (frame.empty())   break; //Acabar video, fecha while
+hconcat(frame,Equalizado,Junto);
+video.write(Junto);
+imshow( "Video", Junto );
+char c=(char)waitKey(25);
+if(c==27)  break;  //Esc fecha video</pre>
+</div>
 </div>
 <div class="paragraph">
 <p>Fora do while temos um "release", ele serve para liberar a camera e depois o a função destroyAll, que destrói todos as imagens.</p>
@@ -1332,7 +1334,7 @@ Caso queira sair, basta pressionar a tecla 'Esc'.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-09-12 13:39:56 -03
+Last updated 2019-09-12 13:46:37 -03
 </div>
 </div>
 </body>
