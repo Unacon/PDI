@@ -465,7 +465,7 @@ Nesse projeto teremos a resolução de algumas atividades que serão exemplifica
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
-<p>equalizar</p>
+<p>Equalizador</p>
 </li>
 <li>
 <p>Dectetor de Movimento</p>
@@ -865,7 +865,7 @@ floodFill(image,p,255);
 <div class="sect2">
 <h3 id="_histograma">Histograma</h3>
 <div class="sect3">
-<h4 id="_a_equalizar">a.Equalizar</h4>
+<h4 id="_a_equalizdor">a.Equalizdor</h4>
 <div class="literalblock">
 <div class="content">
 <pre>O Histograma é um mapeamento de todos os pixels da imagem entre os tons de 0 a 255, para nosso caso so vai haver um histograma pois estamos trabalhando com imagens com somente tons de cinza. Um exemplo de histograma é mostrado abaixo.</pre>
@@ -898,7 +898,156 @@ Abaixo temos a imagem mostrada anteriormente Equalizada.</p>
 </div>
 <div class="paragraph">
 <p>O código fonte não será mostrado pois o foco será fazer isso em vídeo, esse momento foi válido para recordar ou aprender os conceitos de histograma e equalização.
-Abaixo temos o código</p>
+Abaixo temos o código para fazer a equalização do vídeo.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-ruby" data-lang="ruby">Unresolved directive in index.adoc - include::C%C3%B3digo/HistVideo.cpp[]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>O programa grava o viídeo apresentado na tela, o vídeo do lado esquerdo é o origial e do outro lado é equalizado.</p>
+</div>
+<div class="videoblock">
+<div class="title">Video Original e Equalizado</div>
+<div class="content">
+<video src="Fotos/Junto.avi" controls>
+Your browser does not support the video tag.
+</video>
+</div>
+</div>
+<div class="paragraph">
+<p>Agora vamos analisar o código apresentado acima. Vou explicar as partes referentes a histograma e equalização, o trecho de arquivo serei mais rápido.
+Para abrir um video é muito parecido a imagem, com diferença da Classe chamada de VideoCapture, para esse caso colocamos o nome do vídeo quando criamos a variável. Igualmente a imagem, fizemos a verificação para validar que o video possui informação.
+No próximo passo, retirei a largura e altura do vídeo por meio da função "get".Isso é somente necessário para guardar o vídeo final.</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>VideoCapture cap("teste2.mp4");
+  if(!cap.isOpened()){
+   cout &lt;&lt; "Erro" &lt;&lt; endl;
+   return -1;
+ }//Verifica se video foi aberto
+int width  = cap.get(CV_CAP_PROP_FRAME_WIDTH);
+int height = cap.get(CV_CAP_PROP_FRAME_HEIGHT);</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Agora entraremos no while infinito, em que será capturado cada imagem do vídeo para uma variável frame criada iniciamente como Mat.
+Posteriormente transformamos a foto para tons de cinzas, pois estamos trabalhando somente com tons de cinzas.
+Existe uma função no próprio OpenCV que equaliza a imagem rapidamente, essa função é a "equalizeHist", os parâmetros passados é a imagem e uma imagem para guarda ela equalizada.</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>cap &gt;&gt; frame;
+cvtColor(frame,frame,CV_RGB2GRAY);//Transforma para Cinza
+equalizeHist( frame , Equalizado );</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>A função faz o seguinte cálculo:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Cria um histograma da imagem</p>
+</li>
+<li>
+<p>Calcula quantos pixels existem no imagem</p>
+</li>
+<li>
+<p>Cria um vetor com a seguinte função (g[i]=g[i-1]+hist[i]), i=256.</p>
+</li>
+<li>
+<p>Imagem Equalizada recebe essa função ( image.at&lt;uchar&gt;(i,j)= (g[(int)image.at&lt;uchar&gt;(i,j)]) * 256 / bits)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>A primeira função é um acumulador do histograma. A segunda função pega o valor do pixel da imagem e coloca como entrada no vetor,a saída do vetor é multiplicado por 256 ( maxímo valor assuimido por um pixel) e dividito pela quantidade de bits da imagem, esse trecho de multiplicação e divisão é para normalizar o resultado entre 0 e 255. Abaixo temos a função.</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>cap &gt;&gt; frame;
+cvtColor(frame,frame,CV_RGB2GRAY);//Transforma para Cinza
+equalizeHist( frame , Equalizado );</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Abaixo temos um seletor que serve para fechar o while quando o video terminar.
+Logo abaixo temos a concatenação da imagem original com a imagem equalizada, isso é so para facilitar as diferenças no próprio vídeo.
+Posteriormente o vídeo concatenado é mostrado na tela.
+Podemos ver que temos um seletor, ele serve somente para sair do vídeo quando precionarmos a tecla "Esc".</p>
+</div>
+<div class="paragraph">
+<p>if (frame.empty())   break; //Acabar video, fecha while</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>hconcat(frame,Equalizado,Junto);</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>video.write(Junto);</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>imshow( "Video", Junto );</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>char c=(char)waitKey(25);
+if(c==27)  break;  //Esc fecha video</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Fora do while temos um "release", ele serve para liberar a camera e depois o a função destroyAll, que destrói todos as imagens.</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>cap.release();
+ video.release();
+ //Destrui todos frames
+ destroyAllWindows();</pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_b_detector_de_movimento">b.Detector de Movimento</h4>
+<div class="paragraph">
+<p>Como o nome já diz, iremos programar um detector de movimento em tons de cinzas, mas pode ser ampliado para imagens em RGB.
+Iremos utilizar o histograma para detectar qualquer alteração na imagem, caso apareça ou suma qualquer objeto da imagem o histograma irá modificar.
+Entam so precisamos ficar comparando o histograma atual com o histograma anterior, caso seja diferente é porque houve alteração da imagem e podemos deduzir que algo se moveu.
+Para deixar o detector mais fiel a movimento de objetos, colocaremos alguns parametros, pois caso a imagem sofrer qualquer tipo de ruído em um curto espaço de tempo, o histograma irá modificar e dará um resultado inapropriado.
+Os parâmetros serão os seguintes,o histograma será normalizado para 64 posições,exemplo: Caso o pixel fique entre 0 e 3, no normalizado ele ficará na posição 0 e assim em diante.Esses parâmetros podem ser mudado de acordo com o programador, caso o histograma normalizado tenha 23 pixels diferentes do histograma anterior será considerado movimento. Abaixo temos o vídeo com Dectector de movimento. Observe quando tiver movimento, aparecerá um quadrado preto na parte superior na esquerda.</p>
+</div>
+<div class="videoblock">
+<div class="title">Video Detector de Movimento</div>
+<div class="content">
+<video src="Fotos/Detector.avi" controls>
+Your browser does not support the video tag.
+</video>
+</div>
+</div>
+<div class="paragraph">
+<p>O código fonte para o programa Detector de Movimento.</p>
+</div>
+<div class="listingblock">
+<div class="title">Detector de Movimento</div>
+<div class="content">
+<pre class="highlight"><code class="language-CPP" data-lang="CPP">Unresolved directive in index.adoc - include::C%C3%B3digo/motiondetector.cpp[]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Irei explicar as principais funções necessárias para entender o programa, muiita coisa é parecida com o programa anterior.
+Dentro do whiel, capturamos uma imagem chamada de framBase e utilizamos uma função calcHist que calcula o histograma da imagem e guarda em um Mat de dimensões 64x1. Posteriormente  capturamos uma nova imagem e calculamos o histograma pela mesma função.
+Diante disso fazemos um laço para varrer umas dos histogramas, caso os histograma tenha um valor diferente, contador que foi inicialdo em zero incremente uma unidade.
+Como ja parametrizamos a quantidade para ser considerado movimento, utilizamos um 'if', caso cont seja maior que 23, será considerado movimento e um quadrado preto irá aparecer na tela.
+Depois do 'if' zeramos o cont para que no próximo loop ele fique com zero.
+Caso queira sair, basta pressionar a tecla 'Esc'.</p>
 </div>
 </div>
 </div>
@@ -907,7 +1056,7 @@ Abaixo temos o código</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-09-12 09:07:23 -03
+Last updated 2019-09-12 12:12:43 -03
 </div>
 </div>
 </body>
