@@ -508,7 +508,40 @@ Nesse programa solicitar a imagem a ser processada, damos o tamanho da imagem e 
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-CPP" data-lang="CPP">Unresolved directive in index.adoc - include::C%C3%B3digo/negativoparcial.cpp[]</code></pre>
+<pre class="highlight"><code class="language-CPP" data-lang="CPP">#include &lt;iostream&gt;
+#include &lt;opencv2/opencv.hpp&gt;
+
+using namespace cv;
+using namespace std;
+
+int main(int argc, char** argv){
+  Mat image;
+  int P1[2],P2[2];
+
+  image= imread(argv[1],0);
+  if(!image.data)
+  cout &lt;&lt; "nao abriu" &lt;&lt; endl;
+  imshow("Imagem Inicial",image);
+
+  cout&lt;&lt;"Tamanho da imagem : "&lt;&lt;image.rows&lt;&lt;"x"&lt;&lt;image.cols&lt;&lt;"\n";
+  cout&lt;&lt;"Digite o ponto P1(x,y)\n";//Ponto extremo esquerdo
+  cin&gt;&gt;P1[0]&gt;&gt;P1[1];//x=linha y=coluna
+  cout&lt;&lt;"Digite o ponto P2(x,y)\n";//Ponto extremo direito
+  cin&gt;&gt;P2[0]&gt;&gt;P2[1];//x=linha e y=coluna
+
+  if(P1[0]&gt;=0 &amp;&amp; P1[1]&lt;image.rows &amp;&amp; P2[0]&gt;=P1[0] &amp;&amp; P2[1]&gt;=P2[1]){
+      for(int i=P1[0];i&lt;P2[0];i++){
+	for(int j=P1[1];j&lt;P2[1];j++){
+                    image.at&lt;uchar&gt;(i,j)=255-image.at&lt;uchar&gt;(i,j);
+  	}
+      }
+  imshow("janela", image);
+  imwrite("dota.jpg",image);
+  waitKey();
+  }
+
+  return 0;
+}</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -581,7 +614,39 @@ Agora iremos apresentar o código fonte e explicar passo a passo sobre o program
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code>Unresolved directive in index.adoc - include::C%C3%B3digo/trocaregioes.cpp[]</code></pre>
+<pre class="highlight"><code>#include &lt;iostream&gt;
+#include &lt;opencv2/opencv.hpp&gt;
+
+using namespace cv;
+using namespace std;
+
+int main(int argc, char** argv){
+  Mat image;
+  int X,Y,i,j;
+  image= imread(argv[1],0);
+  if(!image.data)    cout &lt;&lt; "nao abriu" &lt;&lt; endl;
+  Mat imagef(image.rows,image.cols,0);
+  X=image.cols/2 ;
+  Y=image.rows/2;
+  cout&lt;&lt;X&lt;&lt;" "&lt;&lt;Y&lt;&lt;endl;
+  for(i=0;i&lt;image.cols;i++){
+    for(j=0;j&lt;image.rows;j++){
+      if (i&lt;=X &amp;&amp; j&lt;=Y) imagef.at&lt;uchar&gt;(j,i)=image.at&lt;uchar&gt;(Y+j,X+i);
+      if (i&gt;=X &amp;&amp; j&lt;=Y) imagef.at&lt;uchar&gt;(j,i)=image.at&lt;uchar&gt;(Y+j,i-X);
+      if (i&lt;=X &amp;&amp; j&gt;=Y) imagef.at&lt;uchar&gt;(j,i)=image.at&lt;uchar&gt;(j-Y,i+X);
+      if (i&gt;=X &amp;&amp; j&gt;=Y) imagef.at&lt;uchar&gt;(j,i)=image.at&lt;uchar&gt;(j-Y,i-X);
+
+    }
+  }
+
+  imshow("ImagemOriginal",image);
+  waitKey();
+
+  imshow("ImagemTrocada", imagef);
+  imwrite("imgtrocada.png",imagef);
+  waitKey();
+  return 0;
+}</code></pre>
 </div>
 </div>
 <div class="literalblock">
@@ -663,7 +728,106 @@ O código fonte se encontra logo abaixo:</pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-ruby" data-lang="ruby">Unresolved directive in index.adoc - include::C%C3%B3digo/contador.cpp[]</code></pre>
+<pre class="highlight"><code class="language-ruby" data-lang="ruby">#include &lt;iostream&gt;
+#include &lt;opencv2/opencv.hpp&gt;
+
+using namespace cv;
+using namespace std;
+
+int main(int argc, char** argv){
+  Mat image;
+  int width, heigth, objetos=0, i, j,comburaco=0,semburaco=0;
+  CvPoint p(0,0);
+
+  image = imread(argv[1],0);
+  if(!image.data){
+    cout&lt;&lt;"Nao abriu\n";
+    return(0);
+  }
+
+  imshow("Contador",image);
+  waitKey();
+
+  width=image.size().width;
+  heigth=image.size().height;
+
+  for(i=0;i&lt;heigth;i++){
+    if(image.at&lt;uchar&gt;(i,0)==255){
+       p.x=0;
+       p.y=i;
+          floodFill(image,p,0);
+    }
+    if(image.at&lt;uchar&gt;(i,width-1)==255){
+       p.x=width-1;
+       p.y=i;
+        floodFill(image,p,0);
+    }
+      }
+   for(j=0;j&lt;width;j++){
+     if(image.at&lt;uchar&gt;(0,j)==255){
+       p.x=j;
+       p.y=0;
+        floodFill(image,p,0);
+      }
+
+     if(image.at&lt;uchar&gt;(heigth-1,j)==255){
+       p.x=j;
+       p.y=heigth-1;
+       floodFill(image,p,0);
+      }
+  }
+
+   for(i=0;i&lt;heigth;i++){
+    for(j=0;j&lt;width;j++){
+      if(image.at&lt;uchar&gt;(i,j)==255){
+	objetos++;
+	p.x=j;
+	p.y=i;
+	floodFill(image,p,objetos);
+      }
+    }
+  }
+    imshow("Contador",image);
+    imwrite("labeling.png", image);
+    waitKey();
+
+   p.x=0;
+   p.y=0;
+   floodFill(image,p,255);
+   imwrite("FundoBranco.png",image);
+
+   for(i=0;i&lt;heigth;i++){
+    for(j=0;j&lt;width;j++){
+      if(image.at&lt;uchar&gt;(i,j)==0 &amp;&amp; image.at&lt;uchar&gt;(i,j-1)!=255){
+	comburaco++;
+	p.x=j;
+	p.y=i;
+	floodFill(image,p,255);
+	p.x=j-1;
+	floodFill(image,p,255);
+      }
+    }
+  }
+   imshow("BolhasS",image);
+   imwrite("labeling2.png",image);
+
+   for(i=0;i&lt;heigth;i++){
+    for(j=0;j&lt;width;j++){
+      if(image.at&lt;uchar&gt;(i,j)!=255){
+	semburaco++;
+	p.x=j;
+	p.y=i;
+	floodFill(image,p,255);
+      }
+    }
+  }
+
+  cout&lt;&lt;"Quantidade de Bolhas : "&lt;&lt;objetos&lt;&lt;endl;
+  cout&lt;&lt;"Quantidade de Bolhas com Buracos : "&lt;&lt;comburaco&lt;&lt;endl;
+  cout&lt;&lt;"Quantidade de Bolhas sem Buracos : "&lt;&lt;semburaco&lt;&lt;endl;
+  waitKey();
+  return 0;
+}</code></pre>
 </div>
 </div>
 <div class="literalblock">
@@ -837,7 +1001,7 @@ Posteriormente a esse passo, a imagem restante somente terá bolhas sem buracos,
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="/home/joaovitor/Documentos/2019.2/PDI/labeling2.png" alt="labeling2">
+<img src="Fotos/labeling2.png" alt="labeling2">
 </div>
 <div class="title">Figure 10. Bolhas sem  Buraco</div>
 </div>
@@ -902,7 +1066,58 @@ Abaixo temos o código para fazer a equalização do vídeo.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-ruby" data-lang="ruby">Unresolved directive in index.adoc - include::C%C3%B3digo/HistVideo.cpp[]</code></pre>
+<pre class="highlight"><code class="language-ruby" data-lang="ruby">#include "opencv2/opencv.hpp"
+#include &lt;iostream&gt;
+#include &lt;fstream&gt;
+
+using namespace std;
+using namespace cv;
+
+int main(){
+  VideoCapture cap("teste5.mp4");
+  ofstream arquivo;
+  ofstream arquivo2;
+  Mat frame;
+  Mat Equalizado;
+  Mat Junto;
+
+  arquivo.open("histograma1.txt");
+  arquivo2.open("histograma2.txt");
+  if(!cap.isOpened()){
+    cout &lt;&lt; "Erro" &lt;&lt; endl;
+    return -1;
+  }//Verifica se video foi aberto
+
+int width  = cap.get(CV_CAP_PROP_FRAME_WIDTH);
+int height = cap.get(CV_CAP_PROP_FRAME_HEIGHT);
+VideoWriter video("Junto.avi",CV_FOURCC('P','I','M','1'),30, Size(2*width, height),0);
+
+  while(1){
+
+    cap &gt;&gt; frame;
+    cvtColor(frame,frame,CV_RGB2GRAY);//Transforma para Cinza
+    equalizeHist( frame , Equalizado );
+
+    if (frame.empty())   break; //Acabar video, fecha while
+
+    hconcat(frame,Equalizado,Junto);
+
+    video.write(Junto);
+
+
+    imshow( "Video", Junto );
+
+    char c=(char)waitKey(25);
+    if(c==27)  break;  //Esc fecha video
+
+  }
+  cap.release();
+  video.release();
+  //Destrui todos frames
+  destroyAllWindows();
+
+  return 0;
+}</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1037,7 +1252,116 @@ Your browser does not support the video tag.
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-CPP" data-lang="CPP">Unresolved directive in index.adoc - include::Código/motiondetector.cpp[]</code></pre>
+<pre class="highlight"><code class="language-CPP" data-lang="CPP">#include "opencv2/opencv.hpp"
+#include &lt;iostream&gt;
+#include &lt;fstream&gt;
+
+using namespace std;
+using namespace cv;
+
+int main(){
+  VideoCapture cap("teste2.mp4");
+  ofstream arquivo;
+  ofstream arquivo2;
+  Mat frame,histAnt,histAtual,frameBase;
+  Mat Equalizado;
+  Mat Junto;
+  Mat hist;
+  int nbins = 64,cont=0;
+  float range[] = {0, 256};
+  const float *histrange = { range };
+  bool acummulate = false;
+  bool uniform = true;
+
+  //arquivo.open("histograma1.txt");
+  //arquivo2.open("histograma2.txt");
+  if(!cap.isOpened()){
+    cout &lt;&lt; "Erro" &lt;&lt; endl;
+    return -1;
+  }//Verifica se video foi aberto
+
+int width  = cap.get(CV_CAP_PROP_FRAME_WIDTH);
+int height = cap.get(CV_CAP_PROP_FRAME_HEIGHT);
+ cout&lt;&lt;"width : "&lt;&lt;width&lt;&lt;endl;
+ cout&lt;&lt;"height : "&lt;&lt;height&lt;&lt;endl;
+ VideoWriter video("Detector.avi",CV_FOURCC('P','I','M','1'),30, Size(width, height),0);
+
+
+  while(1){
+
+     cap&gt;&gt;frameBase;
+  cvtColor(frameBase,frameBase,CV_RGB2GRAY);//Transforma para Cinza
+
+      calcHist(&amp;frameBase, 1, 0, Mat(), histAnt, 1,
+       &amp;nbins, &amp;histrange,
+         uniform, acummulate);
+    cap &gt;&gt; frame;
+    cvtColor(frame,frame,CV_RGB2GRAY);//Transforma para Cinza
+
+      // cap&gt;&gt;frame;
+      calcHist(&amp;frame, 1, 0, Mat(), histAtual, 1,
+       &amp;nbins, &amp;histrange,
+       uniform, acummulate);
+      cout&lt;&lt;"HistAnt : "&lt;&lt;histAnt.rows&lt;&lt;" "&lt;&lt;histAnt.cols&lt;&lt;endl;
+      cout&lt;&lt;"HistAtual : "&lt;&lt;histAtual.rows&lt;&lt;" "&lt;&lt;histAtual.cols&lt;&lt;endl;
+
+      for(int i=0;i&lt;64;i++){
+	cout&lt;&lt;(int)histAtual.at&lt;uchar&gt;(0,i)&lt;&lt;" ";
+	if((int)histAtual.at&lt;uchar&gt;(0,i)!=histAnt.at&lt;uchar&gt;(0,i)){
+	  cont++;
+	}
+      }
+
+      if(cont&gt;23){
+	cout&lt;&lt;"\nAlgo Passo"&lt;&lt;endl;
+	for(int i=0;i&lt;50;i++){
+	  for(int j=0;j&lt;50;j++){
+                    frame.at&lt;uchar&gt;(i,j)=0;
+  	}
+       }
+      }
+       else{
+	for(int i=0;i&lt;50;i++){
+	  for(int j=0;j&lt;50;j++){
+	  frame.at&lt;uchar&gt;(i,j)=frame.at&lt;uchar&gt;(i,j);
+	  }
+	}
+       }
+	cout&lt;&lt;cont&lt;&lt;endl;
+	//waitKey();
+
+      cont=0;
+      cout&lt;&lt;endl;
+
+      for(int i=0;i&lt;64;i++){
+	cout&lt;&lt;(int)histAnt.at&lt;uchar&gt;(0,i)&lt;&lt;" ";
+      }
+      cout&lt;&lt;endl;
+
+	  cont=0;
+    if (frame.empty())   break; //Acabar video, fecha while
+
+    //hconcat(frame,Equalizado,Junto);
+
+     video.write(frame);
+
+
+    imshow( "Video", frame );
+
+    char c=(char)waitKey(25);
+    if(c==27)  break;  //Esc fecha video
+
+
+
+  }
+
+  cap.release();
+  video.release();
+  //Destrui todos frames
+  destroyAllWindows();
+
+  return 0;
+}</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1055,7 +1379,7 @@ Caso queira sair, basta pressionar a tecla 'Esc'.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-09-12 12:22:35 -03
+Last updated 2019-09-12 12:31:12 -03
 </div>
 </div>
 </body>
