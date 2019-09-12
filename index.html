@@ -431,11 +431,9 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="sect1">
 <h2 id="_apresentação">Apresentação:</h2>
 <div class="sectionbody">
-<div class="literalblock">
-<div class="content">
-<pre>Olá, sou João Vitor e vou apresentar alguns recursos da plataforma OpenCV como ferramenta de manipulação de imagens.
-Nesse projeto teremos a resolução de algumas atividades que serão exemplificadas e discutidas diante do processo.</pre>
-</div>
+<div class="paragraph">
+<p>Olá, sou João Vitor e vou apresentar alguns recursos da plataforma OpenCV como ferramenta de manipulação de imagens.
+Nesse projeto teremos a resolução de algumas atividades que serão exemplificadas e discutidas diante do processo.</p>
 </div>
 </div>
 </div>
@@ -479,17 +477,14 @@ Nesse projeto teremos a resolução de algumas atividades que serão exemplifica
 <h3 id="_1_manipulação_de_pixels">1.Manipulação de Pixels</h3>
 <div class="sect3">
 <h4 id="_a_negativo_da_imagem">a.Negativo da Imagem</h4>
-<div class="literalblock">
-<div class="content">
-<pre>Essa atividade propoe duas coisas, fazer o negativo de um retângulo que será delimitado pelo usuário. As imagem serão trabalhadas em tons de cinzas.
-Para fazer o negativo basta pegar valor do pixel desejado e diminuir por 255 e guardar no pixels novo.
-Nesse programa solicitar a imagem a ser processada, damos o tamanho da imagem e solicitamos a área a ser negativizada.</pre>
+<div class="paragraph">
+<p>Essa atividade propõe fazer o negativo de um retângulo que será delimitado pelo usuário. A imagem será trabalhada em tons de cinzas.
+Para fazer o negativo basta pegar valor do pixel desejado e diminuir 255 e guardar novamento no pixel.
+Esse programa solicitará a imagem a ser processada, o programa indicará o tamanho da imagem para facilitar a escolha do retângulo e é solicitado a área a ser negativizada por meio do ponto superior esquerda e ponto inferior direito.
+A resposta do programa é a imagem original e a imagem negativizada na tela.</p>
 </div>
-</div>
-<div class="literalblock">
-<div class="content">
-<pre>Abaixo temos a imagem antes e depois do procedimento.</pre>
-</div>
+<div class="paragraph">
+<p>Abaixo temos a imagem antes e depois do procedimento.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -545,8 +540,8 @@ int main(int argc, char** argv){
 </div>
 </div>
 <div class="paragraph">
-<p>Primeiramente foi craido uma variável Mat e dois vetores de inteiros para armazenar a imagem e os pontos a serem negativizados respectivamente.
-Posteriormente image recebe a imagem selecionada pelo usuário e verifica se a image recebeu os dados, caso não ocorra será emitido uma mensagem dissendo que a oimagem nao pode ser aberta. Caso a imagem for aberta, o programa exibirá na tela a imagem em cor de cinza.</p>
+<p>Primeiramente foi craido uma variável Mat e dois vetores de inteiros para armazenar a imagem e os pontos a serem negativizados.
+Posteriormente 'image' recebe a imagem selecionada pelo usuário e verifica se 'image' recebeu os dados, caso não ocorra será emitido uma mensagem dissendo que a imagem nao pode ser aberta. Caso a imagem for aberta, o programa exibirá na tela a imagem em cor de cinza.</p>
 </div>
 <div class="literalblock">
 <div class="content">
@@ -559,7 +554,7 @@ imshow("Imagem Inicial",image);</pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Caso a imagem for aberta, o programa informará o tamanho da imagem em pixels e solicitará do usuário o ponto superior esquerdo do retângulo e inferior direito do mesmo.</p>
+<p>Caso a imagem for aberta, o programa informará o tamanho em pixels e solicitará do usuário o ponto superior esquerdo e inferior direito do retângulo.</p>
 </div>
 <div class="literalblock">
 <div class="content">
@@ -571,7 +566,7 @@ cin&gt;&gt;P2[0]&gt;&gt;P2[1];//x=linha e y=coluna</pre>
 </div>
 </div>
 <div class="paragraph">
-<p>A partir disso o programa irá verificar se os pontos solicitados estão dentro do range da imagem.Caso esteja,ele irá varrer todos os pixels que estão no quadrado por meio de dois laços modificando os pixels para seu negativo. O negativo de um pixel é simplismente o valor dele menos 255.
+<p>A partir disso o programa irá verificar se os pontos solicitados estão dentro do range da imagem. Caso esteja,ele irá varrer todos os pixels que estão no quadrado por meio de dois laços modificando os pixels para seu negativo (O negativo de um pixel é simplismente o valor dele menos 255).
 Feito esse processo, o programa irá mostrar a imagem inicial em tons de cinzas e a imagem com o retângulo negativizado por meio dessas função nativas do OpenCV.</p>
 </div>
 <div class="literalblock">
@@ -591,10 +586,8 @@ for(int j=P1[1];j&lt;P2[1];j++){
 </div>
 <div class="sect3">
 <h4 id="_b_troca_de_regiões">b.Troca de Regiões</h4>
-<div class="literalblock">
-<div class="content">
-<pre>Nessa atividade é necessário somente trocas as regiões da imagem, a mesma foi dividida em quatro parte uniformes, em que o ponto semelhantes entre todas as quatro subimagens é o centro da imagem inicial. Abaixo temos a imagem original e a mesma imagem depois de passar pelo programa.</pre>
-</div>
+<div class="paragraph">
+<p>Nessa atividade é necessário somente trocar as regiões da imagem, a mesma foi dividida em quatro parte uniformes, em que o ponto semelhantes entre todas as quatros subimagens é o centro da imagem inicial. Abaixo temos a imagem original e a mesma imagem depois de passar pelo programa.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -609,7 +602,7 @@ for(int j=P1[1];j&lt;P2[1];j++){
 <div class="title">Figure 4. Imagem Trocada</div>
 </div>
 <div class="paragraph">
-<p>Podemos perceber que a imagem trocada está em tons de cinzas e a ordem das subimagens estão invertidas, nesse caso foi um escolha fazer nesse estilo.
+<p>Podemos perceber que a imagem trocada está em tons de cinzas e a ordem das subimagens estão invertidas, nesse caso foi um escolha do programador deixar nesse estilo.
 Agora iremos apresentar o código fonte e explicar passo a passo sobre o programa.</p>
 </div>
 <div class="listingblock">
@@ -649,12 +642,10 @@ int main(int argc, char** argv){
 }</code></pre>
 </div>
 </div>
-<div class="literalblock">
-<div class="content">
-<pre>Nesse trecho inicial percebemos a criação da variável Mat e de quatro inteiros que irão facilitar futuramente. A image recebe a imagem indicada pelo usuário e percebemos que dentro da função tem '0', esse zero significa que a imagem será transformada para tons de cinzas
-No if é somente uma verificação igual a atividade anterior. Logo abaixo percebemos a criação novamente de uma variável Mat com parâmetros, essa imagef será a imagem final a ser apresentrada, esses parâmetros são a largura e altura da imagem.
-As variáveis X e Y recebem respectivamente  os valores das linhas e colunas dividido por 2 da imagem original e emiti na tela o tamanho dos mesmo. Esses dois parâmetros serão o ponto semelhante entre as quatro subimagens.</pre>
-</div>
+<div class="paragraph">
+<p>Nesse trecho inicial percebemos a criação da variável 'Mat' e de quatro inteiros que irão facilitar futuramente. A 'image' recebe a imagem indicada pelo usuário e percebemos que dentro da função tem um '0', esse zero significa que a imagem será transformada para tons de cinzas.
+No 'if' é somente uma verificação igual a atividade anterior. Logo abaixo percebemos a criação novamente de uma variável 'Mat' com parâmetros, essa 'imagef' será a imagem final a ser apresentrada, esses parâmetros são a largura e altura da imagem.
+   As variáveis 'X' e 'Y' recebem respectivamente  os valores das linhas e colunas dividido por 2 da imagem original e emiti na tela o tamanho do mesmo. Esses dois parâmetros serão o ponto semelhante entre as quatro subimagens.</p>
 </div>
 <div class="literalblock">
 <div class="content">
@@ -668,10 +659,9 @@ Y=image.rows/2;
 cout&lt;&lt;X&lt;&lt;" "&lt;&lt;Y&lt;&lt;endl;</pre>
 </div>
 </div>
-<div class="literalblock">
-<div class="content">
-<pre>Agora irá começar o transporte de informação da imagem original para a imagem trocada, para isso existe dois laços que irá varrer a imagem original. Dentro dos laços existe quatro seletores 'if',caso o pixel esteja antes de 'X' e 'Y', nesse caso serão os pixels superiores da esquerda, estes serão transportados para os pixels inferiores a direita na imagem trocada e vice-versa. Caso os pixels estejão na parte superior direita, esses serão transportada para os pixels inferiores a esquerda e vice-versa.</pre>
-</div>
+<div class="paragraph">
+<p>Agora irá começar o transporte de informação da imagem original para a imagem trocada, para isso existe dois laços que irá varrer a imagem original.
+Dentro dos laços existe quatro seletores 'if',caso o pixel esteja antes de 'X' e 'Y' serão os pixels superiores da esquerda, estes serão transportados para os pixels inferiores a direita na imagem trocada e vice-versa. Caso os pixels estejão na parte superior a direita, esses serão transportada para os pixels inferiores a esquerda e vice-versa.</p>
 </div>
 <div class="literalblock">
 <div class="content">
@@ -703,10 +693,9 @@ waitKey();</pre>
 </div>
 <div class="sect2">
 <h3 id="_2_contador_de_objetos">2.Contador de Objetos</h3>
-<div class="literalblock">
-<div class="content">
-<pre>Nessa atividade foi desenvolvido um programa que pudesse contar objetos, nesse caso foi bolhas brancas em uma imagem preta mas pode ser ampliada para aplicação de objetos. Iremos explicar passo a passo sobre as ferramentas utilizadas. Abaixo temos o resultado do contador para essa imagem.</pre>
-</div>
+<div class="paragraph">
+<p>Nessa atividade foi desenvolvido um programa que pudesse contar objetos, nesse caso foi bolhas brancas em uma imagem preta mas pode ser ampliada para aplicação de outros objetos. Iremos explicar passo a passo sobre as ferramentas utilizadas.
+Abaixo temos o resultado do contador para essa imagem.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -720,11 +709,9 @@ waitKey();</pre>
 </div>
 <div class="title">Figure 6. Contador</div>
 </div>
-<div class="literalblock">
-<div class="content">
-<pre>O contador de bolhas segue algumas regras para facilitar na identificação de bolhas, as bolhas que estão na borda não serão consideras bolhas pois não se sabe se é uma bolha completa ou uma pedaço. Bolhas na qual possuem buraco ou não serão considerados bolhas.
-O código fonte se encontra logo abaixo:</pre>
-</div>
+<div class="paragraph">
+<p>O contador de bolhas segue algumas regras para facilitar na identificação de bolhas, as bolhas que estão na borda não serão consideras bolhas pois não se sabe se é uma bolha completa ou uma pedaço. Bolhas na qual possuem buraco ou não serão considerados bolhas.
+O código fonte se encontra logo abaixo:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -830,37 +817,27 @@ int main(int argc, char** argv){
 }</code></pre>
 </div>
 </div>
-<div class="literalblock">
-<div class="content">
-<pre>Primeiramente percebemos a criação de diversar variáveis, no geral elas serão para a imagem,tamanho da imagem, contador de bolhas, contador de bolhas com buracos e sem buracos. Existe uma nova variável chamada p da classe CvPoint, nesse caso ela será útil para armazenar o pixels em 'x' e 'y'.
+<div class="paragraph">
+<p>Primeiramente percebemos a criação de diversar variáveis, no geral elas serão para a imagem,tamanho da imagem, contador de bolhas, contador de bolhas com buracos e sem buracos. Existe uma nova variável chamada p da classe CvPoint, nesse caso ela será útil para armazenar o pixels em 'X' e 'Y'.
 Iniciando o processamento do programa, temos a abertura da imagem do usuário e juntamente a verificação da mesma.
-Posteriormente temos a apresentação da imagem na tela.</pre>
-</div>
+Posteriormente temos a apresentação da imagem na tela.</p>
 </div>
 <div class="literalblock">
 <div class="content">
 <pre>Mat image;
 int width, heigth, objetos=0, i, j,comburaco=0,semburaco=0;
-CvPoint p(0,0);</pre>
-</div>
-</div>
-<div class="literalblock">
-<div class="content">
-<pre>image = imread(argv[1],0);
+CvPoint p(0,0);
+image = imread(argv[1],0);
 if(!image.data){
   cout&lt;&lt;"Nao abriu\n";
   return(0);
-}</pre>
-</div>
-</div>
-<div class="literalblock">
-<div class="content">
-<pre>imshow("Contador",image);
+}
+imshow("Contador",image);
 waitKey();</pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Logo abaixo existe as variáveis width e heigth que serão armazenadas a quantidades de linhas e colunas da imagem.</p>
+<p>Logo abaixo existe as variáveis 'width' e 'heigth' que serão armazenadas a quantidades de linhas e colunas da imagem.</p>
 </div>
 <div class="literalblock">
 <div class="content">
@@ -868,12 +845,10 @@ waitKey();</pre>
 heigth=image.size().height;</pre>
 </div>
 </div>
-<div class="literalblock">
-<div class="content">
-<pre>Em seguida temos um laço que varre a borda superior e inferior, e dentro temos dois seletores que irão verificar se o pixel a ser varrido é '255'(branco), caso seja presupoe que existe uma bolha na borda. Como bolhas nas bordas não serão contabilizadas, serão excluídas para facilitar o trabalho.
-Para exlui essa bolha, existe uma função chamada FloodFill que pinta todos os pixels até encontrar um pixels diferente do selecionado. As informações solicitadas pela função é a imagem, o ponto de operação e o valor desejável para pintar.
-Fica nitído que o primeiro laço so irá verificar se existe bolhas na borda superior e inferior, para compensar terá um novo laço na qual verifica bolhas na borda da esquerda e direita da mesma forma do primeiro laço.</pre>
-</div>
+<div class="paragraph">
+<p>Em seguida temos um laço que varre a borda superior e inferior e dentro temos dois seletores que irão verificar se o pixel a ser varrido é '255'(branco), caso seja, presupoe que existe uma bolha na borda. Como bolhas nas bordas não serão contabilizadas, serão excluídas para facilitar o trabalho.
+Para exclui essa bolha, existe uma função chamada FloodFill que pinta todos os pixels até encontrar um pixels diferente do selecionado. As informações solicitadas pela função é a imagem, o ponto de operação e o valor desejável para pintar.
+Fica nitído que o primeiro laço so irá verificar se existe bolhas na borda superior e inferior, para compensar terá um novo laço na qual verifica bolhas na borda da esquerda e direita da mesma forma do primeiro laço.</p>
 </div>
 <div class="paragraph">
 <p>for(i=0;i&lt;heigth;i){
@@ -893,21 +868,17 @@ Fica nitído que o primeiro laço so irá verificar se existe bolhas na borda su
        p.x=j;
        p.y=0;
         floodFill(image,p,0);
-      }</p>
-</div>
-<div class="literalblock">
-<div class="content">
-<pre>   if(image.at&lt;uchar&gt;(heigth-1,j)==255){
-     p.x=j;
-     p.y=heigth-1;
-     floodFill(image,p,0);
-    }
-}</pre>
-</div>
+      }
+     if(image.at&lt;uchar&gt;(heigth-1,j)==255){
+       p.x=j;
+       p.y=heigth-1;
+       floodFill(image,p,0);
+      }
+  }</p>
 </div>
 <div class="paragraph">
-<p>Posteriormente da verificação e exclusão das bolhas nas bordas da imagem, iremos passar para os laços que contam as bolhas dentro da imagem. Para isso foi criado dois laços que irá varrer toda a imagem, e dentro do laço possui um seletor, caso o pixel seja igual a '255'(branco) a variável objetos será incrementada. A variável p da classe CvPoint irá armazenar a posição do pixel e seguidamente ocorre um FloodFill na imagem na posição 'p' com o valor do pixel 'objeto', percebemos que o valor do 'objeto' será diferente de '0'.
-O motivo de pintar os pixels no valor do objeto é que o seletor passará normalmente quando o pixel é igual ao valor, não interferindo no programa.</p>
+<p>Posteriormente da verificação e exclusão das bolhas nas bordas da imagem, iremos passar para os laços que contam as bolhas dentro da imagem. Para isso foi criado dois laços que irá varrer toda a imagem,dentro do laço possui um seletor, caso o pixel seja igual a '255'(branco) a variável objetos será incrementada. A variável p da classe CvPoint irá armazenar a posição do pixel e seguidamente ocorre um FloodFill na imagem na posição 'p' com o valor do pixel 'objeto', percebemos que o valor do 'objeto' será diferente de '0'.
+O motivo de pintar os pixels no valor do 'objeto' é que o seletor passará normalmente pela bolha sem contabilizar a bolha novamente, não interferindo no programa.</p>
 </div>
 <div class="literalblock">
 <div class="content">
@@ -933,7 +904,7 @@ floodFill(image,p,objetos);
 <div class="title">Figure 7. Imagem Processada</div>
 </div>
 <div class="paragraph">
-<p>Podemos percebemos que a parte superior ficor com tons de cinzas mais escuro do que na parte inferior, isso se da por conta que o contador 'objetos' aumenta de acordo com a quantidade de bolhas encontradas, próximo ao final da imagem ele tende a ter um valor mais distante de '0', percebendo issocomo um gradiente na imagem.</p>
+<p>Podemos percebemos que a parte superior ficou com tons de cinzas mais escuro do que na parte inferior, isso se da por conta que o contador 'objetos' aumenta de acordo com a quantidade de bolhas encontradas, próximo ao final da imagem ele tende a ter um valor mais distante de '0', percebendo isso como um gradiente na imagem.</p>
 </div>
 <div class="admonitionblock warning">
 <table>
@@ -942,16 +913,14 @@ floodFill(image,p,objetos);
 <div class="title">Warning</div>
 </td>
 <td class="content">
-O que acontece caso objetos for mais que 255? E o que fazer para solucionar.
+O que acontece caso existir mais de 255 objetos? E o que fazer para solucionar.
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p>Esse procedimento irá ocorrer quando na imagem tiver mais de 255 objetos na imagem, exemplo em foto de sangue,chuva entre outros, uma solução para o problema é aumentar a quantidade bits de 255 para mais,por exemplo colocando para um inteiro aumentando drasticamente o valor. Para colocar na imagem basta fazer uma modulação da variável de 0 a 255.</p>
-</div>
-<div class="paragraph">
-<p>Continuando o processo, iremos adentrar na funcionalidade de contar quantas bolhas com buracos e sem buracos a imagem possui. Para isso utilizamos a imagem ja processada do contador de bolhas e aplicamos um floodFill na imagem com no ponto (0,0) e valor '255'(branco), teremos uma imagem com fundo branco igual a essa.</p>
+<p>Esse procedimento irá ocorrer quando na imagem tiver mais de 255 objetos na imagem, exemplo em foto de sangue,chuva entre outros, uma solução para o problema é aumentar a quantidade bits de 255 para mais,por exemplo colocando para um inteiro aumentando drasticamente o valor. Para colocar na imagem basta fazer uma modulação da variável de 0 a 255.
+Continuando o processo, iremos adentrar na funcionalidade de contar quantas bolhas com buracos e sem buracos a imagem possui. Para isso utilizamos a imagem já processada do contador de bolhas e aplicamos um 'FloodFill' na imagem no ponto (0,0) no valor '255'(branco), teremos uma imagem com fundo branco igual a essa.</p>
 </div>
 <div class="literalblock">
 <div class="content">
@@ -968,7 +937,7 @@ imwrite("FundoBranco.png",image);</pre>
 <div class="title">Figure 8. Fundo Branco</div>
 </div>
 <div class="paragraph">
-<p>Esse procedimento irá facilitar na identificação de bolhas com e sem buracos. Posteriormente teremos dois laços e um seletor como mostra a seguir:</p>
+<p>Esse procedimento irá facilitar na identificação de bolhas com e sem buracos. Posteriormente teremos dois laços e um seletor como mostra a seguir.</p>
 </div>
 <div class="literalblock">
 <div class="content">
@@ -1006,7 +975,7 @@ Posteriormente a esse passo, a imagem restante somente terá bolhas sem buracos,
 <div class="title">Figure 10. Bolhas sem  Buraco</div>
 </div>
 <div class="paragraph">
-<p>Para verificar quantos buracos existem na imagem, basta utilizar os laços inicialmente apresentador no contador normal, com cuidado que o fundo é '255'(branco) e o as bolhas são '0'(pretas). Dentro do seletor incrementamos o contador e apagamos a bolha para nao contar novamente.</p>
+<p>Para verificar quantos buracos existem na imagem, basta utilizar os laços inicialmente apresentados no contador normal, com cuidado que o fundo é '255'(branco) e o as bolhas são '0'(preto). Dentro do seletor incrementamos o contador e apagamos a bolha para nao contar novamente.</p>
 </div>
 <div class="literalblock">
 <div class="content">
@@ -1030,10 +999,8 @@ floodFill(image,p,255);
 <h3 id="_histograma">Histograma</h3>
 <div class="sect3">
 <h4 id="_a_equalizdor">a.Equalizdor</h4>
-<div class="literalblock">
-<div class="content">
-<pre>O Histograma é um mapeamento de todos os pixels da imagem entre os tons de 0 a 255, para nosso caso so vai haver um histograma pois estamos trabalhando com imagens com somente tons de cinza. Um exemplo de histograma é mostrado abaixo.</pre>
-</div>
+<div class="paragraph">
+<p>O Histograma é um mapeamento de todos os pixels da imagem entre os tons de 0 a 255, para nosso caso só vai haver um histograma pois estamos trabalhando com imagens de tons de cinza. Um exemplo de histograma é mostrado abaixo.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -1121,7 +1088,7 @@ VideoWriter video("Junto.avi",CV_FOURCC('P','I','M','1'),30, Size(2*width, heigh
 </div>
 </div>
 <div class="paragraph">
-<p>O programa grava o viídeo apresentado na tela, o vídeo do lado esquerdo é o origial e do outro lado é equalizado.</p>
+<p>O programa grava o vídeo apresentado na tela, o vídeo do lado esquerdo é o origial e do outro lado é equalizado.</p>
 </div>
 <div class="videoblock">
 <div class="title">Video Original e Equalizado</div>
@@ -1132,7 +1099,7 @@ Your browser does not support the video tag.
 </div>
 </div>
 <div class="paragraph">
-<p>Agora vamos analisar o código apresentado acima. Vou explicar as partes referentes a histograma e equalização, o trecho de arquivo serei mais rápido.
+<p>Agora vamos analisar o código apresentado acima. Vou explicar as partes referentes a histograma e equalização, o trecho de arquivo não será apresentado.
 Para abrir um video é muito parecido a imagem, com diferença da Classe chamada de VideoCapture, para esse caso colocamos o nome do vídeo quando criamos a variável. Igualmente a imagem, fizemos a verificação para validar que o video possui informação.
 No próximo passo, retirei a largura e altura do vídeo por meio da função "get".Isso é somente necessário para guardar o vídeo final.</p>
 </div>
@@ -1148,8 +1115,8 @@ int height = cap.get(CV_CAP_PROP_FRAME_HEIGHT);</pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Agora entraremos no while infinito, em que será capturado cada imagem do vídeo para uma variável frame criada iniciamente como Mat.
-Posteriormente transformamos a foto para tons de cinzas, pois estamos trabalhando somente com tons de cinzas.
+<p>Agora entraremos no while infinito, em que será capturado cada imagem do vídeo para uma variável frame criada iniciamente como 'Mat'.
+Posteriormente transformamos a foto para tons de cinzas, pois estamos trabalhando somente imagens preto e branco.
 Existe uma função no próprio OpenCV que equaliza a imagem rapidamente, essa função é a "equalizeHist", os parâmetros passados é a imagem e uma imagem para guarda ela equalizada.</p>
 </div>
 <div class="literalblock">
@@ -1168,7 +1135,7 @@ equalizeHist( frame , Equalizado );</pre>
 <p>Cria um histograma da imagem</p>
 </li>
 <li>
-<p>Calcula quantos pixels existem no imagem</p>
+<p>Calcula quantos pixels existem na imagem (bits)</p>
 </li>
 <li>
 <p>Cria um vetor com a seguinte função (g[i]=g[i-1]+hist[i]), i=256.</p>
@@ -1179,7 +1146,8 @@ equalizeHist( frame , Equalizado );</pre>
 </ul>
 </div>
 <div class="paragraph">
-<p>A primeira função é um acumulador do histograma. A segunda função pega o valor do pixel da imagem e coloca como entrada no vetor,a saída do vetor é multiplicado por 256 ( maxímo valor assuimido por um pixel) e dividito pela quantidade de bits da imagem, esse trecho de multiplicação e divisão é para normalizar o resultado entre 0 e 255. Abaixo temos a função.</p>
+<p>A primeira função é um acumulador do histograma. A segunda função pega o valor do pixel da imagem e coloca como entrada no vetor,a saída do vetor é multiplicado por 256 ( maxímo valor assumido por um pixel) e dividido pela quantidade de bits da imagem, esse trecho de multiplicação e divisão é para normalizar o resultado entre 0 e 255.
+Abaixo temos a função.</p>
 </div>
 <div class="literalblock">
 <div class="content">
@@ -1190,33 +1158,17 @@ equalizeHist( frame , Equalizado );</pre>
 </div>
 <div class="paragraph">
 <p>Abaixo temos um seletor que serve para fechar o while quando o video terminar.
-Logo abaixo temos a concatenação da imagem original com a imagem equalizada, isso é so para facilitar as diferenças no próprio vídeo.
+Logo depois temos a concatenação da imagem original com a imagem equalizada, isso é só para facilitar a observação das diferenças no próprio vídeo.
 Posteriormente o vídeo concatenado é mostrado na tela.
 Podemos ver que temos um seletor, ele serve somente para sair do vídeo quando precionarmos a tecla "Esc".</p>
 </div>
 <div class="paragraph">
-<p>if (frame.empty())   break; //Acabar video, fecha while</p>
-</div>
-<div class="literalblock">
-<div class="content">
-<pre>hconcat(frame,Equalizado,Junto);</pre>
-</div>
-</div>
-<div class="literalblock">
-<div class="content">
-<pre>video.write(Junto);</pre>
-</div>
-</div>
-<div class="literalblock">
-<div class="content">
-<pre>imshow( "Video", Junto );</pre>
-</div>
-</div>
-<div class="literalblock">
-<div class="content">
-<pre>char c=(char)waitKey(25);
-if(c==27)  break;  //Esc fecha video</pre>
-</div>
+<p>if (frame.empty())   break; //Acabar video, fecha while
+    hconcat(frame,Equalizado,Junto);
+    video.write(Junto);
+    imshow( "Video", Junto );
+    char c=(char)waitKey(25);
+    if(c==27)  break;  //Esc fecha video</p>
 </div>
 <div class="paragraph">
 <p>Fora do while temos um "release", ele serve para liberar a camera e depois o a função destroyAll, que destrói todos as imagens.</p>
@@ -1237,7 +1189,8 @@ if(c==27)  break;  //Esc fecha video</pre>
 Iremos utilizar o histograma para detectar qualquer alteração na imagem, caso apareça ou suma qualquer objeto da imagem o histograma irá modificar.
 Entam so precisamos ficar comparando o histograma atual com o histograma anterior, caso seja diferente é porque houve alteração da imagem e podemos deduzir que algo se moveu.
 Para deixar o detector mais fiel a movimento de objetos, colocaremos alguns parametros, pois caso a imagem sofrer qualquer tipo de ruído em um curto espaço de tempo, o histograma irá modificar e dará um resultado inapropriado.
-Os parâmetros serão os seguintes,o histograma será normalizado para 64 posições,exemplo: Caso o pixel fique entre 0 e 3, no normalizado ele ficará na posição 0 e assim em diante.Esses parâmetros podem ser mudado de acordo com o programador, caso o histograma normalizado tenha 23 pixels diferentes do histograma anterior será considerado movimento. Abaixo temos o vídeo com Dectector de movimento. Observe quando tiver movimento, aparecerá um quadrado preto na parte superior na esquerda.</p>
+Os parâmetros serão os seguintes,o histograma será normalizado para 64 posições,exemplo: Caso o pixel fique entre 0 e 3, no normalizado ele ficará na posição 0 e assim em diante.
+Esses parâmetros podem ser mudado de acordo com o programador, caso o histograma normalizado tenha 23 pixels diferentes do histograma anterior será considerado movimento. Abaixo temos o vídeo com Dectector de movimento. Observe quando tiver movimento, aparecerá um quadrado preto na parte superior na esquerda.</p>
 </div>
 <div class="videoblock">
 <div class="title">Video Detector de Movimento</div>
@@ -1365,9 +1318,9 @@ int height = cap.get(CV_CAP_PROP_FRAME_HEIGHT);
 </div>
 </div>
 <div class="paragraph">
-<p>Irei explicar as principais funções necessárias para entender o programa, muiita coisa é parecida com o programa anterior.
-Dentro do whiel, capturamos uma imagem chamada de framBase e utilizamos uma função calcHist que calcula o histograma da imagem e guarda em um Mat de dimensões 64x1. Posteriormente  capturamos uma nova imagem e calculamos o histograma pela mesma função.
-Diante disso fazemos um laço para varrer umas dos histogramas, caso os histograma tenha um valor diferente, contador que foi inicialdo em zero incremente uma unidade.
+<p>Irei explicar as principais funções necessárias para entender o programa, muita coisa é parecida com o programa anterior.
+Dentro do while, capturamos uma imagem chamada de 'frameBase' e utilizamos uma função 'calcHist' que calcula o histograma da imagem e guarda em um 'Mat' de dimensões 64x1. Posteriormente  capturamos uma nova imagem e calculamos o histograma pela mesma função.
+Diante disso fazemos um laço para varrer umas dos histogramas, caso os histogramas tenham um valor diferente, o contador que foi inicialdo em zero incremente uma unidade.
 Como ja parametrizamos a quantidade para ser considerado movimento, utilizamos um 'if', caso cont seja maior que 23, será considerado movimento e um quadrado preto irá aparecer na tela.
 Depois do 'if' zeramos o cont para que no próximo loop ele fique com zero.
 Caso queira sair, basta pressionar a tecla 'Esc'.</p>
@@ -1379,7 +1332,7 @@ Caso queira sair, basta pressionar a tecla 'Esc'.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-09-12 12:31:12 -03
+Last updated 2019-09-12 13:39:56 -03
 </div>
 </div>
 </body>
