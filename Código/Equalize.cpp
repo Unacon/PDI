@@ -1,7 +1,6 @@
 #include "opencv2/opencv.hpp"
 #include <iostream>
-#include <fstream>
- 
+#include <fstream> 
 using namespace std;
 using namespace cv;
  
@@ -29,24 +28,19 @@ VideoWriter video("Junto.avi",CV_FOURCC('P','I','M','1'),30, Size(2*width, heigh
     cap >> frame;    
     cvtColor(frame,frame,CV_RGB2GRAY);//Transforma para Cinza
     equalizeHist( frame , Equalizado );
-    
+   
     if (frame.empty())   break; //Acabar video, fecha while
 
-    hconcat(frame,Equalizado,Junto);
-    
-    video.write(Junto);   
-
-    
+    hconcat(frame,Equalizado,Junto);    
+    video.write(Junto);       
     imshow( "Video", Junto );
     
     char c=(char)waitKey(25);
     if(c==27)  break;  //Esc fecha video
-
   }
   cap.release();
   video.release(); 
   //Destrui todos frames
-  destroyAllWindows();
-     
+  destroyAllWindows();     
   return 0;
 }
