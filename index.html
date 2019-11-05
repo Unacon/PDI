@@ -440,6 +440,9 @@ Nesse projeto teremos a resolução de algumas atividades que serão exemplifica
 <div class="sect1">
 <h2 id="_atividades">Atividades</h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p><strong>Primeira Unidade</strong></p>
+</div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -473,13 +476,29 @@ Nesse projeto teremos a resolução de algumas atividades que serão exemplifica
 </li>
 </ol>
 </div>
+<div class="paragraph">
+<p><strong>Segunda Unidade</strong></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Filtro Homomórfico</p>
+</li>
+<li>
+<p>Canny com pontilhismo</p>
+</li>
+<li>
+<p>Kmeans</p>
+</li>
+</ol>
+</div>
 <div class="sect2">
 <h3 id="_1_manipulação_de_pixels">1.Manipulação de Pixels</h3>
 <div class="sect3">
 <h4 id="_a_negativo_da_imagem">a.Negativo da Imagem</h4>
 <div class="paragraph">
 <p>Essa atividade propõe fazer o negativo de um retângulo que será delimitado pelo usuário. A imagem será trabalhada em tons de cinzas.
-Para fazer o negativo basta pegar valor do pixel desejado e diminuir 255 e guardar novamento no pixel.
+Para fazer o negativo basta pegar valor do pixel desejado e diminuir 255 e guardar novamente no pixel.
 Esse programa solicitará a imagem a ser processada, o programa indicará o tamanho da imagem para facilitar a escolha do retângulo e é solicitado a área a ser negativizada por meio do ponto superior esquerda e ponto inferior direito.
 A resposta do programa é a imagem original e a imagem negativizada na tela.</p>
 </div>
@@ -1329,13 +1348,206 @@ Caso queira sair, basta pressionar a tecla 'Esc'.</p>
 </div>
 </div>
 </div>
+<div class="sect2">
+<h3 id="_1_filtro_homomórfico">1.Filtro Homomórfico</h3>
+<div class="paragraph">
+<p>O Filtro Homomórfico é muito usado para melhorar imagens que possuem iluminação precária, apesar de ter diversor parâmetros dentro da função para conseguir uma imagem plausível.
+O Filtro é dada por a seguinte função matemática.</p>
+</div>
+<div class="imageblock" style="text-align: center">
+<div class="content">
+<img src="Fotos/Teste.svg" alt="Teste">
+</div>
+<div class="title">Figure 14. Função Homomórfica</div>
+</div>
+<div class="imageblock" style="text-align: center">
+<div class="content">
+<img src="Fotos/GraficoHomo.png" alt="GraficoHomo" width="500">
+</div>
+<div class="title">Figure 15. Gráfico Do Filtro Homomórfico</div>
+</div>
+<div class="paragraph">
+<p>O Filtro Homomórfico trabalha no domínio da frequência, por esse motivo temos os parâmetros "u" e "v".
+Observando o gráfico do filtro percebemos que as frequências mais baixas são atenuadas e as mais elevadas são mantidas.
+A principal função desse Filtro é melhorar a qualidade da iluminação da imagem, podendo verificar objetos nas imagens que anteriormente não era possível.
+Esse Filtro é baseado na iluminância e reflectância da imagem, conforme a Figura abaixo.</p>
+</div>
+<div class="imageblock" style="text-align: center">
+<div class="content">
+<img src="Fotos/FuncaoIm.svg" alt="FuncaoIm" width="200">
+</div>
+<div class="title">Figure 16. Função da Imagem</div>
+</div>
+<div class="paragraph">
+<p>Antes de levarmos a função para o domínio da frequência, iremos trata-la para que não ocorra erros na transformação.
+Antes de iniciar o processo de tratamento na função, deve-se ser incrementado uma unidade em todos os pixels da imagem para que não haja incoerência na utilização do tratamento.
+Primeiramente aplicaremos o logaritmo neperiano para conseguirmos separarmos a iluminância da reflectância. Abaixo temos a propriedade utilizada do Ln e a nova função pós-tratamento.</p>
+</div>
+<div class="imageblock" style="text-align: center">
+<div class="content">
+<img src="Fotos/Prop.svg" alt="Prop" width="200">
+</div>
+<div class="title">Figure 17. Propriedade Logarítmica</div>
+</div>
+<div class="imageblock" style="text-align: center">
+<div class="content">
+<img src="Fotos/FuncaoLn.svg" alt="FuncaoLn" width="500">
+</div>
+<div class="title">Figure 18. Função Pós-Tratamento</div>
+</div>
+<div class="paragraph">
+<p>Agora basta aplicarmos a Transformada de Furrier na função, tendo o seguinte:</p>
+</div>
+<div class="imageblock" style="text-align: center">
+<div class="content">
+<img src="Fotos/FuncaoF.svg" alt="FuncaoF" width="300">
+</div>
+<div class="title">Figure 19. Função na frequência</div>
+</div>
+<div class="paragraph">
+<p>Com a imagem no domínio da frequência podemos aplicar o Filtro Homomórfico por meio da função apresentada na Figura 14.
+Para retornamos a imagem no domínio espacial basta fazermos a Transformada Inversa de Furrier e aplicar uma exponencial a função para equilibrar com o logaritmo neperiano.
+Agora iremos analisar os parâmetros do Filtro Homomórfico, abaixo temos um esquema para melhor entendimento.</p>
+</div>
+<div class="paragraph">
+<p>\(H(u,v)=(\gamma_H - \gamma_L)(1-e^{c(\frac{D^2(u,v)}{D^2_0})}+\gamma_L)\)</p>
+</div>
+<div class="paragraph">
+<p>\(\gamma_L\) : Limiar inferior de corte</p>
+</div>
+<div class="paragraph">
+<p>\(\gamma_H\) : Limiar superior de corte</p>
+</div>
+<div class="paragraph">
+<p>\(D(u,v)=\bigg((u-\frac{M}{2})^2+(v-\frac{N}{2})^{2}\bigg)^\frac{1}{2}\)</p>
+</div>
+<div class="paragraph">
+<p>\(D^2_0\) : Frequência de corte</p>
+</div>
+<div class="paragraph">
+<p>Abaixo temos uma aplicação do Filtro Homomórfico.</p>
+</div>
+<div class="imageblock" style="text-align: center">
+<div class="content">
+<img src="Fotos/Figura1.jpg" alt="FuncaoF" width="300">
+</div>
+<div class="title">Figure 20. Imagem Inicial</div>
+</div>
+<div class="imageblock" style="text-align: center">
+<div class="content">
+<img src="Fotos/Filtro.png" alt="FuncaoF" width="300">
+</div>
+<div class="title">Figure 21. Pós-Filtro</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-CPP" data-lang="CPP">Unresolved directive in index.adoc - include::Código/FHt.cpp[]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Esse código junta a transformada de Furrier e toda a teorização aplicada anteriormente para desenvolver o Filtro Homomórfico.
+Para o Filtro, foi utilizada imagens tons de cinza para melhorar o desempenho e não sobrecarregar o processamento pois as realizações matemáticas são feitas no domínio da frequência. Nesse domínio gasta muito processamento em comparação ao dominio espacial pelos motivo das multiplicações serem matriciais e ter que ficar mudando o dominio da imagem para ser possível trabalhar.
+Apesar desse ponto negativo, esse Filtro é muito bem utilizado quando relacionado com imagens que possuem iluminação precária.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Canny com pontilhismo</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>O Detector de Bordas com o algoritmo de Canny é bem conhecido no mundo das imagens por ser rápido e eficiente no seu objetivo.
+O algoritmo somente necessita de dois parâmetros para seu funcionamento, na qual são dois limiares para assumir se a borda é forte ou fraca.
+O algoritmo funciona pegando a imagem e identificando a borda de acordo com os limiares a aplicando um threshold ma imagem.
+Lebrando que a imagem deve está em tons de cinzas para melhor aproveitamento do algoritmo.
+Funcionamento da Algortimo de Canny:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Primeiramente ocorre a convolução com o fitlro Gaussiano, e posteriormente é cálculado a magnitude e o ângulo.</p>
+</li>
+<li>
+<p>Com os ângulos determinados de cada pixels, os mesmo são classificados da seguinte forma: Horizontal, Vertical,+45° e  -45°.</p>
+</li>
+<li>
+<p>É criada uma imagem para indicar as bordas, para isso é verificado semelhança de ângulos entre seus vizinhos.</p>
+</li>
+<li>
+<p>Caso exista, será comparado suas magnitudes na qual se existir algum de seus vizinhos com magnitude maior a imagem receberá zero no seu respectivo pixel, caso contrário receberá 255.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>-Os parâmetros indicados pelos úsuarios são os limiares na qual deixa passar pixels que possuam magnitude superior ao menor limiar.</p>
+</div>
+<div class="paragraph">
+<p>O Pontilismo é uma técnica de pintura criada nos meados de 1880, na qual utiliza pontos para pintar imagens por meio de justaposição.</p>
+</div>
+<div class="paragraph">
+<p>Nesse projeto iremos associar o algoritmo de Canny juntamente com o Pontilismo.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Kmeans</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>A quantização vetorail com k-means particiona n observações dentre k grupos onde cada um pertence ao grupo mais pŕoximo da média. Esse método é útil para compactar imagens.</p>
+</div>
+<div class="paragraph">
+<p>Abaixo temos a utilização do Kmeans iniciando os centros de forma aleatória e somente com uma rodada já que o kmeans é preciso algumas rodadas para conseguir se aproximas da exatidão vista pelo algortimo.</p>
+</div>
+<div class="paragraph">
+<p>Deixando os centros aleatórios o resultando provalvemente nunca será igual, sendo consideração não deteminístico.
+Esse algoritmo foi utilizado 10 vezes e feito um GIF representando as mudanças que pode ocorrer na utilização do Kmeans.</p>
+</div>
+<div class="videoblock">
+<div class="title">Kmaens</div>
+<div class="content">
+<video src="Fotos/GIF.mp4" controls>
+Your browser does not support the video tag.
+</video>
+</div>
+</div>
+<div class="paragraph">
+<p>Abaixo temos o código fonte para representação do Kmeans</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-CPP" data-lang="CPP">Unresolved directive in index.adoc - include::Código/kmeans.cpp[]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>O código salva dez imagens feitas pelo algoritmo Kmeans, posteriormente basta transformar as imagens em GIF.</p>
+</div>
+</div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-09-12 13:46:37 -03
+Last updated 2019-11-04 21:34:59 -03
 </div>
 </div>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  messageStyle: "none",
+  tex2jax: {
+    inlineMath: [["\\(", "\\)"]],
+    displayMath: [["\\[", "\\]"]],
+    ignoreClass: "nostem|nolatexmath"
+  },
+  asciimath2jax: {
+    delimiters: [["\\$", "\\$"]],
+    ignoreClass: "nostem|noasciimath"
+  },
+  TeX: { equationNumbers: { autoNumber: "none" } }
+});
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.6.0/MathJax.js?config=TeX-MML-AM_HTMLorMML"></script>
 </body>
 </html>
